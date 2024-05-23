@@ -1,0 +1,344 @@
+[
+    {
+        "id": "a95cfd26d71e34e2",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "249d9727f8b30342",
+        "type": "mqtt out",
+        "z": "a95cfd26d71e34e2",
+        "name": "",
+        "topic": "tago/data/post",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8623c6b97cdfa147",
+        "x": 1020,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "02d125c02c8cee1d",
+        "type": "function",
+        "z": "a95cfd26d71e34e2",
+        "name": "function 1",
+        "func": "var jsonData = [\n    {\n        \"variable\": \"Temperatura\",\n        \"unit\": \"ºC\",\n        \"value\": msg.payload.temperature\n    },\n    {\n        \"variable\": \"Umidade\",\n        \"unit\": \"%\",\n        \"value\": msg.payload.humidity\n    },\n    {\n        \"variable\": \"BPM\",\n        \"unit\": \"bpm\",\n        \"value\": msg.payload.heart_rate\n    }\n];\n\nreturn jsonData;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 260,
+        "wires": [
+            [
+                "249d9727f8b30342"
+            ]
+        ]
+    },
+    {
+        "id": "343a13077134260b",
+        "type": "json",
+        "z": "a95cfd26d71e34e2",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 490,
+        "y": 400,
+        "wires": [
+            [
+                "02d125c02c8cee1d",
+                "0a413c50056a7916",
+                "e4206703ad6cbe43",
+                "cd15db9aa547be48",
+                "043ab37fdef2a8bd"
+            ]
+        ]
+    },
+    {
+        "id": "0e293a07f524644d",
+        "type": "serial in",
+        "z": "a95cfd26d71e34e2",
+        "name": "",
+        "serial": "ef0e963c3c726483",
+        "x": 310,
+        "y": 400,
+        "wires": [
+            [
+                "343a13077134260b"
+            ]
+        ]
+    },
+    {
+        "id": "0a413c50056a7916",
+        "type": "change",
+        "z": "a95cfd26d71e34e2",
+        "name": "Temperatura",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"temperatura\":\"payload.temperature\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 730,
+        "y": 360,
+        "wires": [
+            [
+                "b78afc296f2f527a"
+            ]
+        ]
+    },
+    {
+        "id": "e4206703ad6cbe43",
+        "type": "change",
+        "z": "a95cfd26d71e34e2",
+        "name": "Umidade",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.humidity",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 420,
+        "wires": [
+            [
+                "d1175d2c5c4e8fd9"
+            ]
+        ]
+    },
+    {
+        "id": "cd15db9aa547be48",
+        "type": "change",
+        "z": "a95cfd26d71e34e2",
+        "name": "Batimento Cardíaco",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.heart_rate",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 480,
+        "wires": [
+            [
+                "c2b9eec46c685c72"
+            ]
+        ]
+    },
+    {
+        "id": "b78afc296f2f527a",
+        "type": "mqtt out",
+        "z": "a95cfd26d71e34e2",
+        "name": "",
+        "topic": "SPRINT4/Temp",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "df184854137109a6",
+        "x": 1040,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "d1175d2c5c4e8fd9",
+        "type": "mqtt out",
+        "z": "a95cfd26d71e34e2",
+        "name": "",
+        "topic": "SPRINT4/Humy",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "df184854137109a6",
+        "x": 1040,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "c2b9eec46c685c72",
+        "type": "mqtt out",
+        "z": "a95cfd26d71e34e2",
+        "name": "",
+        "topic": "SPRINT4/BPM",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "df184854137109a6",
+        "x": 1040,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "043ab37fdef2a8bd",
+        "type": "change",
+        "z": "a95cfd26d71e34e2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"temperatura\":\"msg.payload.temperature\",\"Umidade\":\"msg.payload.humidity\",\"BPM\":\"msg.payload.heart_rate\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 580,
+        "wires": [
+            [
+                "d59927698e689da0"
+            ]
+        ]
+    },
+    {
+        "id": "d59927698e689da0",
+        "type": "mqtt out",
+        "z": "a95cfd26d71e34e2",
+        "name": "",
+        "topic": "SPRINT4/DATA",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "df184854137109a6",
+        "x": 1040,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "8623c6b97cdfa147",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mqtt.tago.io",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "ef0e963c3c726483",
+        "type": "serial-port",
+        "name": "",
+        "serialport": "COM5",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "df184854137109a6",
+        "type": "mqtt-broker",
+        "name": "HiveMQ",
+        "broker": "mqtt-dashboard.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
